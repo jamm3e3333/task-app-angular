@@ -1,0 +1,27 @@
+@if (isNewTaskVisible()) {
+  <app-new-task
+      [userId]="userId()"
+      (hideNewTask)="onHideNewTask()"
+  />
+}
+
+<section id="tasks">
+  <header>
+    <h2>{{this.name()}}'s Tasks</h2>
+    <menu>
+      <button (click)="onDisplayNewTask()">Add Task</button>
+    </menu>
+  </header>
+
+  <ul>
+    @if (this.selectedUserTasks && this.selectedUserTasks.length > 0) {
+      @for (t of this.selectedUserTasks; track t.id) {
+        <li>
+          <app-task [task]="t" />
+        </li>
+      }
+    } @else {
+      <p>No tasks found</p>
+    }
+  </ul>
+</section>
